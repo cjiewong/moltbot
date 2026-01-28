@@ -2,11 +2,11 @@
 
 ## 📋 概述
 
-本文档记录了如何为 moltbot 配置 gog CLI 的 Google OAuth 认证，以便访问 Gmail、Calendar、Drive、Contacts、Sheets 和 Docs 等 Google 服务。
+本文档记录了如何为 moltbot 配置 gog CLI 的 Google OAuth 认证，以便访问 Gmail、Calendar、Drive、Contacts、Sheets、Docs 和 Tasks 等 Google 服务。
 
 ## 🎯 目标
 
-配置 gog CLI 使用 Google OAuth 认证，让 moltbot 能够通过 gog 命令访问 Google Workspace 服务。
+配置 gog CLI 使用 Google OAuth 认证，让 moltbot 能够通过 gog 命令访问 Google Workspace 服务（Gmail、Calendar、Drive、Contacts、Sheets、Docs、Tasks）。
 
 ## 📦 前置条件
 
@@ -37,12 +37,12 @@ source ~/.bashrc
 运行以下命令启动认证：
 
 ```bash
-gog auth add huangchaojie5@gmail.com --manual --services gmail,calendar,drive,contacts,sheets,docs
+gog auth add huangchaojie5@gmail.com --manual --services gmail,calendar,drive,contacts,sheets,docs,tasks
 ```
 
 **参数说明：**
 - `--manual`: 使用手动模式（适合远程服务器）
-- `--services`: 指定要授权的服务列表
+- `--services`: 指定要授权的服务列表（gmail, calendar, drive, contacts, sheets, docs, tasks）
 
 ### 3. 获取 OAuth 授权 URL
 
@@ -64,6 +64,7 @@ https://accounts.google.com/o/oauth2/auth?client_id=160560236207-q01snaku53i2bqk
    - Contacts（管理联系人）
    - Sheets（管理表格）
    - Docs（管理文档）
+   - Tasks（管理任务）
 4. **点击"允许"或"Allow"**
 
 ### 5. 复制回调 URL
@@ -176,7 +177,7 @@ gog 的配置和 tokens 存储在：
 ```bash
 rm -f ~/.config/gogcli/keyring/*
 export GOG_KEYRING_PASSWORD="gog-moltbot-2026"
-gog auth add huangchaojie5@gmail.com --manual --services gmail,calendar,drive,contacts,sheets,docs
+gog auth add huangchaojie5@gmail.com --manual --services gmail,calendar,drive,contacts,sheets,docs,tasks
 ```
 
 ### 方法2：使用 gog auth remove
@@ -184,7 +185,7 @@ gog auth add huangchaojie5@gmail.com --manual --services gmail,calendar,drive,co
 ```bash
 export GOG_KEYRING_PASSWORD="gog-moltbot-2026"
 gog auth remove huangchaojie5@gmail.com
-gog auth add huangchaojie5@gmail.com --manual --services gmail,calendar,drive,contacts,sheets,docs
+gog auth add huangchaojie5@gmail.com --manual --services gmail,calendar,drive,contacts,sheets,docs,tasks
 ```
 
 ## 🐛 故障排查
@@ -207,7 +208,7 @@ export GOG_KEYRING_PASSWORD="gog-moltbot-2026"
 # 删除旧的 keyring 并重新认证
 rm -f ~/.config/gogcli/keyring/*
 export GOG_KEYRING_PASSWORD="gog-moltbot-2026"
-gog auth add huangchaojie5@gmail.com --manual --services gmail,calendar,drive,contacts,sheets,docs
+gog auth add huangchaojie5@gmail.com --manual --services gmail,calendar,drive,contacts,sheets,docs,tasks
 ```
 
 ### 问题3：`state mismatch`
@@ -299,6 +300,25 @@ gog docs export <docId> --format txt --out /tmp/doc.txt
 
 # 查看文档内容
 gog docs cat <docId>
+```
+
+### Tasks
+
+```bash
+# 列出任务列表
+gog tasks lists
+
+# 列出任务
+gog tasks list <taskListId>
+
+# 创建任务
+gog tasks create <taskListId> --title "Task title" --notes "Task description"
+
+# 更新任务
+gog tasks update <taskListId> <taskId> --title "Updated title" --status completed
+
+# 删除任务
+gog tasks delete <taskListId> <taskId>
 ```
 
 ## 🔗 相关资源

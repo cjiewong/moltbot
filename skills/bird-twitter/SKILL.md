@@ -57,6 +57,15 @@ source ~/.config/bird/secret-env.sh
 bird whoami
 ```
 
+### Local setup note (this machine)
+
+On this host, the credentials file already exists at:
+
+```bash
+source ~/.config/bird/secret-env.sh
+bird check
+```
+
 Credential resolution order (important for debugging):
 
 1. CLI flags: `--auth-token`, `--ct0`

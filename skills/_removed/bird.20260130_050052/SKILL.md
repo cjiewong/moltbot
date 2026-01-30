@@ -55,6 +55,20 @@ Use `--auth-token` / `--ct0` to pass cookies directly, or `--cookie-source` for 
 
 Run `bird check` to see which source is active. For Arc/Brave, use `--chrome-profile-dir <path>`.
 
+### Local setup note (this machine)
+
+This host stores X/Twitter cookies for `bird` here:
+
+```bash
+source ~/.config/bird/secret-env.sh
+bird check
+```
+
+`~/.config/bird/secret-env.sh` should export:
+
+- `AUTH_TOKEN` (auth_token cookie)
+- `CT0` (ct0 cookie)
+
 ## Commands
 
 ### Account & Auth

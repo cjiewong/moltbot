@@ -74,3 +74,6 @@ USER.md
 __pycache__/
 *.pyc
 *.pyo
+
+# skill state files
+.model-state

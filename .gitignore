@@ -64,7 +64,6 @@ apps/ios/*.mobileprovision
 
 # Local untracked files
 .local/
-.vscode/
 IDENTITY.md
 USER.md
 .tgz
@@ -77,3 +76,8 @@ __pycache__/
 
 # skill state files
 .model-state
+
+# Agent credentials and memory (NEVER COMMIT)
+memory/
+.agent/*.json
+!.agent/workflows/

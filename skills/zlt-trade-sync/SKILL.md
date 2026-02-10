@@ -1,6 +1,6 @@
 ---
 name: zlt-trade-sync
-description: Sync Huatai/涨乐通 trade execution emails from Gmail (sender qqt_ufg_client@htsc.com, subject 订单执行情况通知) into Obsidian vault weekly trading notes under 01-Projects/trading-YYYY. Parses HTML tables, maps bid→买入 and ask→卖出, deduplicates existing rows, auto-creates weekly files (Mon–Sun), then git commit + push. Use when you want to “同步涨乐通成交邮件到 Obsidian / trading-2026 周报 / 过去30天成交同步”.
+description: 同步涨乐通（华泰）成交邮件到 Obsidian 交易周报（trading-YYYY），自动去重并 commit+push。
 ---
 
 # ZLT Trade Sync

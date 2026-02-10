@@ -29,19 +29,51 @@ def slugify(name: str) -> str:
 
 
 def guess_bucket(text: str) -> str:
+    """Return a *relative folder* under the vault.
+
+    The vault currently follows PARA, so we route into existing PARA folders.
+    Keep this conservative: prefer routing to folders that exist (or are safe to create).
+    """
     t = text
-    # crude keyword routing
-    if re.search(r"\b(ea|mt5|mql|python|node|typescript|k8s|docker)\b", t, re.I):
-        return "20-Coding"
+
+    # Web clips / zhihu
+    if re.search(r"^#\s*知乎摘录｜", t, re.M) or re.search(r"zhuanlan\.zhihu\.com|www\.zhihu\.com", t):
+        return os.path.join("03-Resources", "Clippings")
+
+    # Coding references
+    if re.search(r"\b(ea|mt5|mql|python|node|typescript|k8s|docker|linux|sql|mysql|postgres)\b", t, re.I):
+        return os.path.join("03-Resources", "Coding-References")
+
+    # Trading
     if re.search(r"(交易|策略|回测|量化|套利|期权|期货|外汇|仓位|对冲)", t):
-        return "10-Trading"
+        # Prefer references; strategies can be more opinionated
+        return os.path.join("03-Resources", "trading-references")
+
+    # Life guides / travel
     if re.search(r"(旅行|酒店|机票|行程|亲子|签证)", t):
-        return "40-Life"
+        return os.path.join("03-Resources", "Life-Guides")
+
+    # Dated notes: put into Inbox by default (user can re-file later)
     if re.search(r"\b20\d{2}[-/]?(0?[1-9]|1[0-2])[-/]?(0?[1-9]|[12]\d|3[01])\b", t):
-        return "00-Diary"
+        return "00-Inbox"
+
+    # AI learning/tools
     if re.search(r"(MBTI|LLM|prompt|agent|Claude|Gemini|OpenAI)", t, re.I):
-        return "30-AI Learning"
-    return "90-Others"
+        return os.path.join("03-Resources", "AI-Tools")
+
+    return "00-Inbox"
+
+
+def _expand(path: str) -> str:
+    return os.path.abspath(os.path.expanduser(path))
+
+
+def _vault_root_default() -> str:
+    return _expand("~/obsidian/obsidian_huaigu")
+
+
+def _dir_exists(vault_root: str, rel_dir: str) -> bool:
+    return os.path.isdir(os.path.join(vault_root, rel_dir))
 
 
 def main() -> int:
@@ -49,6 +81,11 @@ def main() -> int:
     ap.add_argument("--md", help="path to markdown; if omitted, read stdin")
     ap.add_argument("--title", default=None)
     ap.add_argument("--ext", default=".md")
+    ap.add_argument(
+        "--vault-root",
+        default=_vault_root_default(),
+        help="vault root path (default: ~/obsidian/obsidian_huaigu)",
+    )
     args = ap.parse_args()
 
     if args.md:
@@ -67,13 +104,18 @@ def main() -> int:
         if m:
             title = m.group(1).strip()
 
+    vault_root = _expand(args.vault_root)
+
     bucket = guess_bucket(text)
+
+    # If the bucket doesn't exist in the actual vault, fall back to Inbox.
+    # (We don't create folders here; this script only suggests a destination.)
+    if not _dir_exists(vault_root, bucket):
+        bucket = "00-Inbox"
 
     filename = slugify(title or "note") + args.ext
 
-    # default subfolder for loose notes
-    sub = "Inbox"
-    rel = os.path.join(bucket, sub, filename)
+    rel = os.path.join(bucket, filename)
     print(rel)
     return 0
 

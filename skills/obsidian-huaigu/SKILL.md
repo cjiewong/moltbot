@@ -1,6 +1,6 @@
 ---
 name: obsidian-huaigu
-description: Search, retrieve, and summarize notes in the Obsidian vault at ~/obsidian/obsidian_huaigu (00-Diary/10-Trading/20-Coding/30-AI Learning/40-Life/90-Others). Use for knowledge-base Q&A, locating where a topic is documented, listing relevant notes, extracting key excerpts, and lightweight vault upkeep (e.g., suggesting tags/links or small edits) with approval before any bulk changes.
+description: Search, retrieve, and summarize notes in the Obsidian vault at ~/obsidian/obsidian_huaigu (PARA-style: 00-Inbox/01-Projects/02-Areas/03-Resources/04-Atlas/05-Archive/90-Templates/99-System). Use for knowledge-base Q&A, locating where a topic is documented, listing relevant notes, extracting key excerpts, and lightweight vault upkeep (e.g., suggesting tags/links or small edits) with approval before any bulk changes.
 ---
 
 # Obsidian Huaigu
@@ -38,11 +38,13 @@ Use this skill to treat `~/obsidian/obsidian_huaigu` as the user’s personal kn
 ### D) Add a document/link to the knowledge base (ingest)
 
 Use when the user sends:
+
 - a **Word (.docx)**
 - a **PDF (.pdf)**
 - a **web link**
 
 Workflow:
+
 1. **Sync first**: `bash skills/obsidian-huaigu/scripts/vault_git_sync.sh`
    - If conflicts happen, stop and ask the user.
 2. Convert to Markdown:
@@ -60,28 +62,32 @@ Workflow:
    - `bash skills/obsidian-huaigu/scripts/vault_git_commit_push.sh "~/obsidian/obsidian_huaigu" "kb: ingest <title>"`
    - If push rejected, sync again; if conflicts, stop and ask the user.
 
-
 ### A) Full-text search (recommended)
 
 Run:
+
 - `python3 skills/obsidian-huaigu/scripts/vault_search.py "<query>" --limit 50`
 
 Tips:
+
 - Use `--fixed-strings` for literal queries like `#todo` or `[[Some Link]]`.
 - Use `--context 2` when you need surrounding lines.
 
 ### B) List recently updated notes
 
 Run:
+
 - `python3 skills/obsidian-huaigu/scripts/vault_recent.py --n 30`
 
 ### C) Light maintenance (approval required + commit/push)
 
 Allowed only after user approval:
+
 - Small edits to a specific note (typos, add a short section, add a link)
 - Suggesting tag/link candidates (do not bulk apply without approval)
 
 **After any edit** (even small):
+
 1. Ensure vault is clean or you understand the diff: `git status` / `git diff`
 2. Commit + push:
    - Run `bash skills/obsidian-huaigu/scripts/vault_git_commit_push.sh "~/obsidian/obsidian_huaigu" "<commit message>"`
@@ -89,7 +95,8 @@ Allowed only after user approval:
 If `git push` is rejected (non-fast-forward), run sync again and retry.
 
 For bulk operations (rename/move/mass link insert):
-1) propose plan + sample of affected files
-2) wait for explicit “执行”
-3) apply changes
-4) commit + push
+
+1. propose plan + sample of affected files
+2. wait for explicit “执行”
+3. apply changes
+4. commit + push

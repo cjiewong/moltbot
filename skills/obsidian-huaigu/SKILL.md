@@ -1,6 +1,6 @@
 ---
 name: obsidian-huaigu
-description: Search, retrieve, and summarize notes in the Obsidian vault at ~/obsidian/obsidian_huaigu (PARA-style: 00-Inbox/01-Projects/02-Areas/03-Resources/04-Atlas/05-Archive/90-Templates/99-System). Use for knowledge-base Q&A, locating where a topic is documented, listing relevant notes, extracting key excerpts, and lightweight vault upkeep (e.g., suggesting tags/links or small edits) with approval before any bulk changes.
+description: "Search, retrieve, and summarize notes in the Obsidian vault at ~/obsidian/obsidian_huaigu (PARA-style: 00-Inbox/01-Projects/02-Areas/03-Resources/04-Atlas/05-Archive/90-Templates/99-System). Use for knowledge-base Q&A, locating where a topic is documented, listing relevant notes, extracting key excerpts, and lightweight vault upkeep (e.g., suggesting tags/links or small edits) with approval before any bulk changes."
 ---
 
 # Obsidian Huaigu

@@ -1,6 +1,6 @@
 ---
 name: model-switch
-description: Switch OpenClaw default model between openai-codex/gpt-5.2 and minimax/MiniMax-M2.1, or check the current model. Use when the user says “切换模型/换模型”, “切到 openai-codex/codex”, “切到 minimax/minmax”, or “当前是什么模型/查看当前模型/status”.
+description: Switch OpenClaw default model between openai-codex/gpt-5.3-codex and minimax/MiniMax-M2.1, or check the current model. Use when the user says “切换模型/换模型”, “切到 openai-codex/codex”, “切到 minimax/minmax”, or “当前是什么模型/查看当前模型/status”.
 ---
 
 # Model switch

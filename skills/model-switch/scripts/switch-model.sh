@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# switch-model.sh — 在 MINMAX 和 openai-codex/gpt-5.3-codex 之间切换默认模型
+# switch-model.sh — 在 MINMAX 和 openai-codex/gpt-5.2 之间切换默认模型
 #
 # 用法:
-#   ./switch-model.sh openai-codex   切换到 openai-codex/gpt-5.3-codex
+#   ./switch-model.sh openai-codex   切换到 openai-codex/gpt-5.2
 #   ./switch-model.sh minimax        切换回之前保存的 MINIMAX 模型
 #   ./switch-model.sh status          显示当前默认模型
 #   ./switch-model.sh                 同 status
@@ -11,7 +11,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 STATE_FILE="$SCRIPT_DIR/.model-state"
-TARGET_MODEL="openai-codex/gpt-5.3-codex"
+TARGET_MODEL="openai-codex/gpt-5.2"
 PROJECT_DIR="/home/cjie/dev/moltbot"
 
 # 凭证存储路径（多个可能位置）
@@ -216,7 +216,7 @@ case "$CMD" in
     *)
         echo "用法: $0 {openai-codex|minimax|status}"
         echo ""
-        echo "  openai-codex  切换到 openai-codex/gpt-5.3-codex"
+        echo "  openai-codex  切换到 openai-codex/gpt-5.2"
         echo "  minimax       切换回之前保存的 MINIMAX 模型"
         echo "  status        显示当前默认模型"
         exit 1

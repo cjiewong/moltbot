@@ -35,10 +35,20 @@ def check_gateway_process() -> bool:
     """检查 IB Gateway 进程是否存在"""
     try:
         result = subprocess.run(
-            ["pgrep", "-f", "ibgateway"],
+            ["ps", "-Ao", "pid,command"],
             capture_output=True, text=True, timeout=5
         )
-        return result.returncode == 0
+        if result.returncode != 0:
+            return False
+
+        # IB Gateway 进程名在不同平台/安装方式下可能不同：
+        # "ibgateway" / "IB Gateway" / "GatewayStart"
+        patterns = ("ibgateway", "ib gateway", "gatewaystart")
+        for line in result.stdout.splitlines():
+            lower = line.lower()
+            if any(pattern in lower for pattern in patterns):
+                return True
+        return False
     except Exception:
         return False
 

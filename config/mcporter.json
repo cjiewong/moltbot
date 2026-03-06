@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "exa": {
+      "baseUrl": "https://mcp.exa.ai/mcp"
+    },
+    "xiaohongshu": {
+      "baseUrl": "http://localhost:18060/mcp"
+    },
+    "douyin": {
+      "command": "/Users/cjie/Library/Python/3.13/bin/douyin-mcp-server"
+    }
+  },
+  "imports": []
+}
